@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Security', 'CoreTelephony', 'AdSupport', 'SystemConfiguration'
 
-  s.xcconfig = { 'OTHER_LDFLAGS' => '/usr/lib/libz.dylib' }
+  s.library = "z"
 
 end
