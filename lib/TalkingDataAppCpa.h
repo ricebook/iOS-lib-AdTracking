@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface TDOrder : NSObject
 
 /**
- *  @method orderWithOrderId 
+ *  @method orderWithOrderId
  *  @param  orderId          订单id         类型:NSString
  *  @param  total            订单总价        类型:int
  *  @param  currencyType     币种           类型:NSString
@@ -27,9 +28,40 @@
  */
 - (TDOrder *)addItemWithCategory:(NSString *)category name:(NSString *)name unitPrice:(int)unitPrice amount:(int)amount;
 
+/**
+ *  @method addItemWithCategory
+ *  @param  category         商品类别        类型:NSString
+ *  @param  itemId           商品Id         类型:NSString
+ *  @param  name             商品名称        类型:NSString
+ *  @param  unitPrice        商品单价        类型:int
+ *  @param  amount           商品数量        类型:int
+ */
+- (TDOrder *)addItemWithCategory:(NSString *)category itemId:(NSString *)itemId name:(NSString *)name unitPrice:(int)unitPrice amount:(int)amount;
+
 @end
 
-@interface TalkingDataAppCpa : NSObject 
+
+@interface TDShoppingCart : NSObject
+
+/**
+ *  @method createShoppingCart
+ */
++ (TDShoppingCart *)createShoppingCart;
+
+/**
+ *  @method addItemWithCategory
+ *  @param  category         商品类别        类型:NSString
+ *  @param  itemId           商品Id         类型:NSString
+ *  @param  name             商品名称        类型:NSString
+ *  @param  unitPrice        商品单价        类型:int
+ *  @param  amount           商品数量        类型:int
+ */
+- (TDShoppingCart *)addItemWithCategory:(NSString *)category itemId:(NSString *)itemId name:(NSString *)name unitPrice:(int)unitPrice amount:(int)amount;
+
+@end
+
+
+@interface TalkingDataAppCpa : NSObject
 
 /**
  *  @method setVerboseLogDisabled 设置不显示日志  如发布时不需显示日志，应当最先调用该方法
@@ -42,6 +74,12 @@
  *  @param  channelId       渠道名（可选）    类型:NSString     如“app store”
  */
 + (void)init:(NSString *)appID withChannelId:(NSString *)channelId;
+
+/**
+ *  @method onReceiveDeepLink
+ *  @param  link            链接            类型:NSURL
+ */
++ (void)onReceiveDeepLink:(NSURL *)link;
 
 /**
  *  @method onRegister      登录
@@ -72,6 +110,29 @@
 + (void)onPay:(NSString *)account withOrderId:(NSString *)orderId withAmount:(int)amount withCurrencyType:(NSString *)currencyType withPayType:(NSString *)payType;
 
 /**
+ *  @method onPay           支付
+ *  @param  account         帐号            类型:NSString
+ *  @param  orderId         订单id          类型:NSString
+ *  @param  amount          金额            类型:int
+ *  @param  currencyType    币种            类型:NSString
+ *  @param  payType         支付类型         类型:NSString
+ *  @param  order           订单详情         类型:TDOrder
+ */
++ (void)onPay:(NSString *)account withOrderId:(NSString *)orderId withAmount:(int)amount withCurrencyType:(NSString *)currencyType withPayType:(NSString *)payType withOrder:(TDOrder *)order;
+
+/**
+ *  @method onPay           支付
+ *  @param  account         帐号            类型:NSString
+ *  @param  orderId         订单id          类型:NSString
+ *  @param  amount          金额            类型:int
+ *  @param  currencyType    币种            类型:NSString
+ *  @param  payType         支付类型         类型:NSString
+ *  @param  itemId          商品id          类型:NSString
+ *  @param  itemCount       商品个数         类型:int
+ */
++ (void)onPay:(NSString *)account withOrderId:(NSString *)orderId withAmount:(int)amount withCurrencyType:(NSString *)currencyType withPayType:(NSString *)payType withItemId:(NSString *)itemId withItemCount:(int)itemCount;
+
+/**
  *  @method onPlaceOrder    下单
  *  @param  account         帐号            类型:NSString
  *  @param  order           订单            类型:TDOrder
@@ -87,6 +148,31 @@
  *  @param  payType         支付类型         类型:NSString
  */
 + (void)onOrderPaySucc:(NSString *)account withOrderId:(NSString *)orderId withAmount:(int)amount withCurrencyType:(NSString *)currencyType withPayType:(NSString *)payType;
+
+/**
+ *  @method onViewItemWithCategory
+ *  @param  category         商品类别        类型:NSString
+ *  @param  itemId           商品Id         类型:NSString
+ *  @param  name             商品名称        类型:NSString
+ *  @param  unitPrice        商品单价        类型:int
+ */
++ (void)onViewItemWithCategory:(NSString *)category itemId:(NSString *)itemId name:(NSString *)name unitPrice:(int)unitPrice;
+
+/**
+ *  @method onAddItemToShoppingCartWithCategory
+ *  @param  category         商品类别        类型:NSString
+ *  @param  itemId           商品Id         类型:NSString
+ *  @param  name             商品名称        类型:NSString
+ *  @param  unitPrice        商品单价        类型:int
+ *  @param  amount           商品数量        类型:int
+ */
++ (void)onAddItemToShoppingCartWithCategory:(NSString *)category itemId:(NSString *)itemId name:(NSString *)name unitPrice:(int)unitPrice amount:(int)amount;
+
+/**
+ *  @method onViewShoppingCart
+ *  @param  shoppingCart    购物车信息       类型:TDShoppingCart
+ */
++ (void)onViewShoppingCart:(TDShoppingCart *)shoppingCart;
 
 /**
  *  @method onCustEvent1    自定义事件1
@@ -137,5 +223,10 @@
  *  @method onCustEvent10   自定义事件10
  */
 + (void)onCustEvent10;
+
+/**
+ *  @method getDeviceId     获取设备Id
+ */
++ (NSString *)getDeviceId;
 
 @end
