@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface TDOrder : NSObject
 
 /**
- *  @method orderWithOrderId
+ *  @method orderWithOrderId 
  *  @param  orderId          订单id         类型:NSString
  *  @param  total            订单总价        类型:int
  *  @param  currencyType     币种           类型:NSString
@@ -67,6 +66,11 @@
  *  @method setVerboseLogDisabled 设置不显示日志  如发布时不需显示日志，应当最先调用该方法
  */
 + (void)setVerboseLogDisabled;
+
+/**
+ *  @method enableSFSafariViewControllerTracking 用于精准的追踪以Safari作为资源载体的广告来源  如果需要使用应当在init方法之前调用
+ */
++ (void)enableSFSafariViewControllerTracking NS_DEPRECATED_IOS(10_0, NA, "此方法会影响到用户交互，使用前请确保和产品、业务沟通清楚!");
 
 /**
  *  @method init            初始化统计实例    请在application:didFinishLaunchingWithOptions:方法里调用

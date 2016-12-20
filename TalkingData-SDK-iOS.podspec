@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'TalkingData-SDK-iOS'
-  s.version      = '2.3.4'
+  s.version      = '2.3.85'
   s.summary      = 'ENJOY used SDK for iOS'
 
   s.homepage     = 'https://github.com/ricebook/iOS-lib-AdTracking'
